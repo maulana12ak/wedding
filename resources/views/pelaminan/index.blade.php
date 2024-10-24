@@ -13,8 +13,7 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>nama_pelaminan</th>
-                <th>Ukuran</th>
+                <th>Nama_pelaminan</th>
                 <th>harga_sewa</th>
                 <th>deskripsi</th>
                 <th>Aksi</th>
@@ -23,13 +22,13 @@
         <tbody>
             @foreach ($pelaminans as $pelaminan)
                 <tr>
-                    <td>{{ $pelaminan->nama_baju }}</td>
-                    <td>{{ $pelaminan->ukuran }}</td>
-                    <td>{{ $pelaminan->harga_sewa }}</td>
-                    <td>{{ $pelaminan->deskripsi }}</td>
+                    <td>{{ $pelaminan->nama }}</td>
+                    <td>{{ $baju->harga_sewa }}</td>
+                    <td>{{ $baju->deskripsi }}</td>
                     <td>
-                        <a href="{{ route('baju.edit', $baju->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('baju.destroy', $baju->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('pelaminan.show', $pelaminan->id) }}" class="btn btn-info">Detail</a>
+                        <a href="{{ route('pelaminan.edit', $pelaminan->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('pelaminan.destroy', $pelaminan->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>

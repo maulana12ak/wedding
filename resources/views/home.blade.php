@@ -68,7 +68,7 @@
     <!-- Content Section (Navigation) -->
     <nav class="nav flex-column">
       <a class="nav-link" href="#">Home</a>
-      <a class="nav-link" href="{{ route('paket.index')}}">Paket</a>
+      <a class="nav-link" href="#">Paket</a>
       <a class="nav-link" href="#">Makeup</a>
       <a class="nav-link" href="{{ route('pelaminan.index')}}">Pelaminan</a>
       <a class="nav-link" href="{{ route('baju.index') }}">Baju</a>

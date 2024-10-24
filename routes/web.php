@@ -8,9 +8,8 @@ use App\Http\Controllers\PaketPernikahanController;
 Route::resource('akun', AkunController::class);
 Route::resource('baju', BajuController::class);
 Route::resource('pelaminan', PelaminanController::class);
-Route::resource('paket', PaketPernikahanController::class);
 
 // Route untuk beranda
 Route::get('/', function () {
-    return view('akun');
+    return view('home');
 });

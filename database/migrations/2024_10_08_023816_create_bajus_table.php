@@ -12,7 +12,7 @@ class CreateBajusTable extends Migration
             $table->id();
             $table->string('nama_baju');
             $table->string('ukuran');
-            $table->decimal('harga_sewa', 10, 2);
+            $table->decimal('harga_baju', 10, 2);
             $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
