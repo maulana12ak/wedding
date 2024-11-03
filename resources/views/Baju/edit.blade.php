@@ -25,8 +25,8 @@
             <input type="text" name="ukuran" class="form-control" id="ukuran" value="{{ $baju->ukuran }}" required>
         </div>
         <div class="mb-3">
-            <label for="harga_sewa" class="form-label">Harga Sewa</label>
-            <input type="number" name="harga_sewa" class="form-control" id="harga_sewa" value="{{ $baju->harga_sewa }}" step="0.01" required>
+            <label for="harga_baju" class="form-label">Harga Baju</label>
+            <input type="number" name="harga_baju" class="form-control" id="harga_baju" value="{{ $baju->harga_baju }}" step="0.01" required>
         </div>
         <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>

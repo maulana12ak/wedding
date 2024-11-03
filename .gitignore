@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+*.sqlite*
+=======
 /.phpunit.cache
 /node_modules
 /public/build
@@ -19,3 +22,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+>>>>>>> ef624ed94f5221bf105301bba38d63ed29ef9984

@@ -13,10 +13,10 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>nama_baju</th>
+                <th>Nama Baju</th>
                 <th>Ukuran</th>
-                <th>harga_sewa</th>
-                <th>deskripsi</th>
+                <th>Harga Sewa</th>
+                <th>Deskripsi</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -25,9 +25,10 @@
                 <tr>
                     <td>{{ $baju->nama_baju }}</td>
                     <td>{{ $baju->ukuran }}</td>
-                    <td>{{ $baju->harga_sewa }}</td>
+                    <td>{{ $baju->harga_sewa}}</td>
                     <td>{{ $baju->deskripsi }}</td>
                     <td>
+                        <a href="{{ route('baju.show', $baju->id) }}" class="btn btn-info">Detail</a>
                         <a href="{{ route('baju.edit', $baju->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('baju.destroy', $baju->id) }}" method="POST" class="d-inline">
                             @csrf
