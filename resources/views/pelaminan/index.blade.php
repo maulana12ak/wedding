@@ -13,26 +13,45 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>Nama_pelaminan</th>
-                <th>harga_sewa</th>
-                <th>deskripsi</th>
+                <th>Nama Pelaminan</th>
+                <th>Foto</th>
+                <th>Harga</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($pelaminans as $pelaminan)
                 <tr>
-                    <td>{{ $pelaminan->nama }}</td>
-                    <td>{{ $baju->harga_sewa }}</td>
-                    <td>{{ $baju->deskripsi }}</td>
+                    <td>{{ $pelaminan->nama_pelaminan }}</td>
                     <td>
-                        <a href="{{ route('pelaminan.show', $pelaminan->id) }}" class="btn btn-info">Detail</a>
+                        @if ($pelaminan->foto)
+                        <img src="{{ asset('img/' . $pelaminan->foto) }}" alt="" style="width: 70px ;">
+                        @else
+                                Tidak ada foto
+                            @endif
+                    </td>
+                    <td>{{ 'Rp' . number_format($pelaminan->harga, 0, ',', '.') }}</td>
+                    <td>
                         <a href="{{ route('pelaminan.edit', $pelaminan->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('pelaminan.destroy', $pelaminan->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('pelaminan.destroy', $pelaminan->id) }}" method="POST" class="d-inline" 
+                            onsubmit="event.preventDefault(); 
+                            Swal.fire({
+                                title: 'Anda yakin?',
+                                text: 'Data pelaminan akan dihapus!',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Hapus',
+                                cancelButtonText: 'Batal',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    this.submit();
+                                }
+                            });">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
+                        </form>                              
                     </td>
                 </tr>
             @endforeach

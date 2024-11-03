@@ -11,10 +11,8 @@ class Baju extends Model
 
     // Tambahkan atribut yang dapat diisi
     protected $fillable = [
-        'nama_baju', 
-        'ukuran', 
-        'harga_sewa', 
-        'deskripsi', 
-        // Jika Anda menggunakan foto lagi, tambahkan 'foto', tetapi jika tidak, abaikan.
+        'nama_baju',
+        'foto', 
+        'harga',
     ];
 }

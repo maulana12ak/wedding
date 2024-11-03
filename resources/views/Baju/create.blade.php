@@ -13,23 +13,19 @@
         </div>
     @endif
 
-    <form action="{{ route('baju.store') }}" method="POST">
+    <form action="{{ route('baju.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="nama_baju" class="form-label">Nama Baju</label>
+            <label for="nama_baju" class="form-label">Masukkan Nama Baju</label>
             <input type="text" name="nama_baju" class="form-control" id="nama_baju" required>
         </div>
         <div class="mb-3">
-            <label for="ukuran" class="form-label">Ukuran</label>
-            <input type="text" name="ukuran" class="form-control" id="ukuran" required>
+            <label for="foto" class="form-label">Masukkan Foto</label>
+            <input type="file" name="foto" class="form-control" id="foto">
         </div>
         <div class="mb-3">
-            <label for="harga_sewa" class="form-label">Harga Sewa</label>
-            <input type="number" name="harga_sewa" class="form-control" id="harga_sewa" step="100000" required>
-        </div>
-        <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea name="deskripsi" class="form-control" id="deskripsi" rows="3"></textarea>
+            <label for="harga" class="form-label">Masukkan Harga</label>
+            <input type="number" name="harga" class="form-control" id="harga" step="100000" required>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>

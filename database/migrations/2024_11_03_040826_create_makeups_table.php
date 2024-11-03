@@ -4,26 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
+class CreateMakeupsTable extends Migration
+{
     public function up()
     {
         Schema::create('makeups', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->decimal('harga', 8, 2);
-            $table->string('jenis');
+            $table->string('nama_makeup');
+            $table->string('foto')->nullable();
+            $table->decimal('harga', 10, 2);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down()
     {
         Schema::dropIfExists('makeups');
     }
-};
+}

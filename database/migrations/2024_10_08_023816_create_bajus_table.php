@@ -11,9 +11,8 @@ class CreateBajusTable extends Migration
         Schema::create('bajus', function (Blueprint $table) {
             $table->id();
             $table->string('nama_baju');
-            $table->string('ukuran');
-            $table->decimal('harga_baju', 10, 2);
-            $table->text('deskripsi')->nullable();
+            $table->string('foto')->nullable();
+            $table->decimal('harga', 10, 2);
             $table->timestamps();
         });
     }

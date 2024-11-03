@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Baju;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class BajuController extends Controller
 {
@@ -23,20 +25,30 @@ class BajuController extends Controller
     // Simpan baju baru
     public function store(Request $request)
     {
+        
         // Validasi input dari form
-        $request->validate([
+        $validatedData = $request->validate([
             'nama_baju' => 'required',
-            'ukuran' => 'required',
-            'harga_sewa' => 'required|numeric',
-            'deskripsi' => 'nullable',
+            'harga' => 'required|numeric',
+            'foto'=> 'image|file|max:5024',
         ]);
+
+        $extension = $request->file('foto')->getClientOriginalExtension();
+
+        $randomName = Str::random(20).'.'.$extension;
+
+        $path = public_path('img');
+
+        $request->file('foto')->move($path,$randomName);
+
+
+       
 
         // Simpan data baru ke dalam database
         Baju::create([
             'nama_baju' => $request->input('nama_baju'),
-            'ukuran' => $request->input('ukuran'),
-            'harga_sewa' => $request->input('harga_sewa'),
-            'deskripsi' => $request->input('deskripsi'),
+            'foto' => $randomName,
+            'harga' => $request->input('harga'),
         ]);
 
         // Redirect ke halaman index dengan pesan sukses
@@ -53,26 +65,35 @@ class BajuController extends Controller
         return view('baju.edit', compact('baju'));
     }
 
+    
     // Perbarui data baju yang sudah ada
     public function update(Request $request, $id)
     {
         // Validasi input
-        $request->validate([
+        $validatedData = $request->validate([
             'nama_baju' => 'required',
-            'ukuran' => 'required',
-            'harga_sewa' => 'required|numeric',
-            'deskripsi' => 'nullable',
+            'harga' => 'required|numeric',
+            'foto'=> 'image|file|max:5024',
         ]);
 
         // Cari data baju berdasarkan ID
         $baju = Baju::findOrFail($id);
 
+        $extension = $request->file('foto')->getClientOriginalExtension();
+
+        $randomName = Str::random(20).'.'.$extension;
+
+        $path = public_path('img');
+
+        $request->file('foto')->move($path,$randomName);
+
+
         // Update data baju dengan data dari request
         $baju->update([
             'nama_baju' => $request->input('nama_baju'),
-            'ukuran' => $request->input('ukuran'),
-            'harga_sewa' => $request->input('harga_sewa'),
-            'deskripsi' => $request->input('deskripsi'),
+            'foto' => $randomName,
+            'harga' => $request->input('harga'),
+            
         ]);
 
         // Redirect ke halaman index dengan pesan sukses

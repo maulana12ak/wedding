@@ -13,24 +13,20 @@
         </div>
     @endif
 
-    <form action="{{ route('baju.update', $baju->id) }}" method="POST">
+    <form action="{{ route('baju.update', $baju->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="nama_baju" class="form-label">Nama Baju</label>
+            <label for="nama_baju" class="form-label">Masukkan Nama Baju</label>
             <input type="text" name="nama_baju" class="form-control" id="nama_baju" value="{{ $baju->nama_baju }}" required>
         </div>
         <div class="mb-3">
-            <label for="ukuran" class="form-label">Ukuran</label>
-            <input type="text" name="ukuran" class="form-control" id="ukuran" value="{{ $baju->ukuran }}" required>
+            <label for="foto" class="form-label">Masukkan Foto</label>
+            <input type="file" name="foto" class="form-control" id="foto" value="{{ $baju->foto }}">
         </div>
         <div class="mb-3">
-            <label for="harga_baju" class="form-label">Harga Baju</label>
-            <input type="number" name="harga_baju" class="form-control" id="harga_baju" value="{{ $baju->harga_baju }}" step="0.01" required>
-        </div>
-        <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea name="deskripsi" class="form-control" id="deskripsi" rows="3">{{ $baju->deskripsi }}</textarea>
+            <label for="harga" class="form-label">Masukkan Harga</label>
+            <input type="number" name="harga" class="form-control" id="harga" value="{{ $baju->harga }}" step="100000" required>
         </div>
         <button type="submit" class="btn btn-primary">Perbarui</button>
     </form>

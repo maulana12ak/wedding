@@ -14,9 +14,8 @@
         <thead>
             <tr>
                 <th>Nama Baju</th>
-                <th>Ukuran</th>
-                <th>Harga Sewa</th>
-                <th>Deskripsi</th>
+                <th>Foto</th>
+                <th>Harga</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -24,17 +23,35 @@
             @foreach ($bajus as $baju)
                 <tr>
                     <td>{{ $baju->nama_baju }}</td>
-                    <td>{{ $baju->ukuran }}</td>
-                    <td>{{ $baju->harga_sewa}}</td>
-                    <td>{{ $baju->deskripsi }}</td>
                     <td>
-                        <a href="{{ route('baju.show', $baju->id) }}" class="btn btn-info">Detail</a>
+                        @if ($baju->foto)
+                        <img src="{{ asset('img/' . $baju->foto) }}" alt="" style="width: 70px ;">
+                        @else
+                                Tidak ada foto
+                            @endif
+                    </td>
+                    <td>{{ 'Rp' . number_format($baju->harga, 0, ',', '.') }}</td>
+                    <td>
                         <a href="{{ route('baju.edit', $baju->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('baju.destroy', $baju->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('baju.destroy', $baju->id) }}" method="POST" class="d-inline" 
+                            onsubmit="event.preventDefault(); 
+                            Swal.fire({
+                                title: 'Anda yakin?',
+                                text: 'Data baju akan dihapus!',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Hapus',
+                                cancelButtonText: 'Batal',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    this.submit();
+                                }
+                            });">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
+                        </form>                              
                     </td>
                 </tr>
             @endforeach

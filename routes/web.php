@@ -16,4 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('/baju', [BajuController::class, 'index'])->name('baju.index');
+Route::delete('/baju/{id}', [BajuController::class, 'destroy'])->name('baju.destroy');
 Route::get('/', [HomeController::class, 'index'])->name('home');
