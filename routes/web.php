@@ -4,10 +4,13 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\BajuController;
 use App\Http\Controllers\PelaminanController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PaketPernikahanController;
+use App\Http\Controllers\MakeupController;
+use App\Http\Controllers\PaketController;
 
 Route::resource('akun', AkunController::class);
+Route::resource('paket', PaketController::class);
 Route::resource('baju', BajuController::class);
+Route::resource('makeup', MakeupController::class);
 Route::resource('pelaminan', PelaminanController::class);
 
 // Route untuk beranda
