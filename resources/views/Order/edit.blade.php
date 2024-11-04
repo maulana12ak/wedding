@@ -50,7 +50,7 @@
         </div>
         <div class="mb-3">
             <label for="total" class="form-label">Total</label>
-            <input type="number" name="total" class="form-control" step="0.01" value="{{ $order->total }}" required>
+            <input type="number" name="total" class="form-control" step="1" value="{{ $order->total }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
     </form>

@@ -28,8 +28,22 @@
                     <td>{{ 'Rp' . number_format($transaksi->total, 0, ',', '.') }}</td>
                     <td>{{ $transaksi->status }}</td>
                     <td>
-                        <a href="{{ route('transaksis.edit', $transaksi->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('transaksis.destroy', $transaksi->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('transaksi.edit', $transaksi->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('transaksi.destroy', $transaksi->id) }}" method="POST" class="d-inline" 
+                            onsubmit="event.preventDefault(); 
+                            Swal.fire({
+                                title: 'Anda yakin?',
+                                text: 'Data transaksi akan dihapus!',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Hapus',
+                                cancelButtonText: 'Batal',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    this.submit();
+                                }
+                            });">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>

@@ -31,7 +31,21 @@
                     <td>{{ 'Rp' . number_format($order->total, 0, ',', '.') }}</td>
                     <td>
                         <a href="{{ route('order.edit', $order->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('order.destroy', $order->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('order.destroy', $order->id) }}" method="POST" class="d-inline" 
+                            onsubmit="event.preventDefault(); 
+                            Swal.fire({
+                                title: 'Anda yakin?',
+                                text: 'Data order akan dihapus!',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Hapus',
+                                cancelButtonText: 'Batal',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    this.submit();
+                                }
+                            });">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>

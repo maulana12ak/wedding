@@ -23,7 +23,7 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_order' => 'required|exists:orders,id',
+            'id' => 'required|exists:orders,id',
             'tanggal' => 'required|date',
             'total' => 'required|numeric',
             'status' => 'required|in:Pending,Paid,Cancelled',
@@ -42,7 +42,7 @@ class TransaksiController extends Controller
     public function update(Request $request, Transaksi $transaksi)
     {
         $request->validate([
-            'id_order' => 'required|exists:orders,id',
+            'id' => 'required|exists:orders,id',
             'tanggal' => 'required|date',
             'total' => 'required|numeric',
             'status' => 'required|in:Pending,Paid,Cancelled',

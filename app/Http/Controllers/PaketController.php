@@ -28,53 +28,71 @@ class PaketController extends Controller
 
     // Simpan paket baru
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_paket' => 'required',
-            'baju_id' => 'required|exists:bajus,id',
-            'pelaminan_id' => 'required|exists:pelaminans,id',
-            'makeup_id' => 'required|exists:makeups,id',
-            'harga' => 'required|numeric',
-        ]);
+{
+    $request->validate([
+        'nama_paket' => 'required',
+        'baju_id' => 'required|exists:bajus,id',
+        'pelaminan_id' => 'required|exists:pelaminans,id',
+        'makeup_id' => 'required|exists:makeups,id',
+    ]);
 
-        Paket::create($request->all());
+    // Mendapatkan harga dari masing-masing item
+    $baju = Baju::findOrFail($request->baju_id);
+    $pelaminan = Pelaminan::findOrFail($request->pelaminan_id);
+    $makeup = Makeup::findOrFail($request->makeup_id);
 
-        return redirect()->route('paket.index')->with('success', 'Paket berhasil ditambahkan');
-    }
+    // Menghitung total harga
+    $totalHarga = $baju->harga + $pelaminan->harga + $makeup->harga;
 
-    // Form edit paket
-    public function edit($id)
-    {
-        $paket = Paket::findOrFail($id);
-        $bajus = Baju::all();
-        $pelaminans = Pelaminan::all();
-        $makeups = Makeup::all();
-        return view('paket.edit', compact('paket', 'bajus', 'pelaminans', 'makeups'));
-    }
+    // Menyimpan data paket dengan harga total
+    Paket::create([
+        'nama_paket' => $request->nama_paket,
+        'baju_id' => $request->baju_id,
+        'pelaminan_id' => $request->pelaminan_id,
+        'makeup_id' => $request->makeup_id,
+        'harga' => $totalHarga, // simpan total harga
+    ]);
 
-    // Update paket
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama_paket' => 'required',
-            'baju_id' => 'required|exists:bajus,id',
-            'pelaminan_id' => 'required|exists:pelaminans,id',
-            'makeup_id' => 'required|exists:makeups,id',
-            'harga' => 'required|numeric',
-        ]);
+    return redirect()->route('paket.index')->with('success', 'Paket berhasil ditambahkan');
+}
 
-        $paket = Paket::findOrFail($id);
-        $paket->update($request->all());
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_paket' => 'required',
+        'baju_id' => 'required|exists:bajus,id',
+        'pelaminan_id' => 'required|exists:pelaminans,id',
+        'makeup_id' => 'required|exists:makeups,id',
+    ]);
 
-        return redirect()->route('paket.index')->with('success', 'Paket berhasil diperbarui');
-    }
+    $baju = Baju::findOrFail($request->baju_id);
+    $pelaminan = Pelaminan::findOrFail($request->pelaminan_id);
+    $makeup = Makeup::findOrFail($request->makeup_id);
 
-    // Hapus paket
-    public function destroy($id)
-    {
-        $paket = Paket::findOrFail($id);
-        $paket->delete();
+    $totalHarga = $baju->harga + $pelaminan->harga + $makeup->harga;
 
-        return redirect()->route('paket.index')->with('success', 'Paket berhasil dihapus');
-    }
+    $paket = Paket::findOrFail($id);
+    $paket->update([
+        'nama_paket' => $request->nama_paket,
+        'baju_id' => $request->baju_id,
+        'pelaminan_id' => $request->pelaminan_id,
+        'makeup_id' => $request->makeup_id,
+        'harga' => $totalHarga,
+    ]);
+
+    return redirect()->route('paket.index')->with('success', 'Paket berhasil diperbarui');
+}
+
+// Hapus data paket
+public function destroy($id)
+{
+    // Cari data pelaminan berdasarkan ID
+    $paket = Paket::findOrFail($id);
+
+    // Hapus data paket
+    $paket->delete();
+
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('paket.index')->with('success', 'Data paket berhasil dihapus.');
+}
 }

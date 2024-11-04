@@ -6,8 +6,8 @@
     <form action="{{ route('transaksi.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="id_order" class="form-label">Pilih Order</label>
-            <select name="id_order" class="form-select" required>
+            <label for="id" class="form-label">Pilih Order</label>
+            <select name="id" class="form-select" required>
                 <option value="">-- Pilih Order --</option>
                 @foreach ($orders as $order)
                     <option value="{{ $order->id }}">{{ $order->id }}</option>
@@ -20,14 +20,14 @@
         </div>
         <div class="mb-3">
             <label for="total" class="form-label">Total</label>
-            <input type="number" name="total" class="form-control" step="0.01" required>
+            <input type="number" name="total" class="form-control" step="1" required>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <select name="status" class="form-select" required>
-                <option value="Pending">Pending</option>
-                <option value="Paid">Paid</option>
-                <option value="Cancelled">Cancelled</option>
+                <option value="Pending">Menunggu</option>
+                <option value="Paid">Dibayar</option>
+                <option value="Cancelled">Dibatalkan</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Tambah</button>

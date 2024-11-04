@@ -20,7 +20,7 @@
             <select name="idpaket" class="form-select" required>
                 <option value="">-- Pilih Paket --</option>
                 @foreach ($pakets as $paket)
-                    <option value="{{ $paket->id }}">{{ $paket->nama }}</option>
+                    <option value="{{ $paket->id }}">{{ $paket->nama_paket }}</option>
                 @endforeach
             </select>
         </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="mb-3">
             <label for="total" class="form-label">Total</label>
-            <input type="number" name="total" class="form-control" step="0.01" required>
+            <input type="number" name="total" class="form-control" step="1" required>
         </div>
         <button type="submit" class="btn btn-primary">Tambah</button>
     </form>

@@ -7,10 +7,10 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="id_order" class="form-label">Pilih Order</label>
-            <select name="id_order" class="form-select" required>
+            <label for="id" class="form-label">Pilih Order</label>
+            <select name="id" class="form-select" required>
                 @foreach ($orders as $order)
-                    <option value="{{ $order->id }}" {{ $transaksi->id_order == $order->id ? 'selected' : '' }}>
+                    <option value="{{ $order->id }}" {{ $transaksi->id == $order->id ? 'selected' : '' }}>
                         {{ $order->id }}
                     </option>
                 @endforeach
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
             <label for="total" class="form-label">Total</label>
-            <input type="number" name="total" class="form-control" step="0.01" value="{{ $transaksi->total }}" required>
+            <input type="number" name="total" class="form-control" step="1" value="{{ $transaksi->total }}" required>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>

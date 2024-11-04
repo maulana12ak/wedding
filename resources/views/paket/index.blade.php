@@ -22,23 +22,37 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($pakets as $paket)
-            <tr>
-                <td>{{ $paket->nama_paket }}</td>
-                <td>{{ $paket->baju->nama_baju ?? '-' }}</td>
-                <td>{{ $paket->pelaminan->nama_pelaminan ?? '-' }}</td>
-                <td>{{ $paket->makeup->nama_makeup ?? '-' }}</td>
-                <td>Rp{{ number_format($paket->harga, 0, ',', '.') }}</td>
-                <td>
-                    <a href="{{ route('paket.edit', $paket->id) }}" class="btn btn-warning">Edit</a>
-                    <form action="{{ route('paket.destroy', $paket->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus paket ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
+    @foreach($pakets as $paket)
+    <tr>
+        <td>{{ $paket->nama_paket }}</td>
+        <td>{{ $paket->baju->nama_baju }}</td>
+        <td>{{ $paket->pelaminan->nama_pelaminan }}</td>
+        <td>{{ $paket->makeup->nama_makeup }}</td>
+        <td>{{ 'Rp' . number_format($paket->harga, 0, ',', '.') }}</td><!-- Menampilkan harga total -->
+        <td>
+                        <a href="{{ route('paket.edit', $paket->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('paket.destroy', $paket->id) }}" method="POST" class="d-inline" 
+                            onsubmit="event.preventDefault(); 
+                            Swal.fire({
+                                title: 'Anda yakin?',
+                                text: 'Data paket akan dihapus!',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Hapus',
+                                cancelButtonText: 'Batal',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    this.submit();
+                                }
+                            });">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @endsection

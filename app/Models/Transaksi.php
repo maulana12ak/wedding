@@ -9,10 +9,10 @@ class Transaksi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_order', 'tanggal', 'total', 'status'];
+    protected $fillable = ['id', 'tanggal', 'total', 'status'];
 
     public function order()
     {
-        return $this->belongsTo(Order::class, 'id_order');
+        return $this->belongsTo(Order::class, 'id');
     }
 }
