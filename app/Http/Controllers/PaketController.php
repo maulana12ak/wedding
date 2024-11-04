@@ -78,4 +78,3 @@ class PaketController extends Controller
         return redirect()->route('paket.index')->with('success', 'Paket berhasil dihapus');
     }
 }
-

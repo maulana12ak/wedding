@@ -12,7 +12,7 @@ class MakeupController extends Controller
     // Tampilkan semua data makeup
     public function index()
     {
-        $bajus = Makeup::all();
+        $makeups = Makeup::all();
         return view('makeup.index', compact('makeups'));
     }
 
@@ -29,25 +29,15 @@ class MakeupController extends Controller
         // Validasi input dari form
         $validatedData = $request->validate([
             'nama_makeup' => 'required',
+            'jenis'=>'required',
             'harga' => 'required|numeric',
-            'foto'=> 'image|file|max:5024',
         ]);
-
-        $extension = $request->file('foto')->getClientOriginalExtension();
-
-        $randomName = Str::random(20).'.'.$extension;
-
-        $path = public_path('img');
-
-        $request->file('foto')->move($path,$randomName);
-
-
-       
+   
 
         // Simpan data baru ke dalam database
         Makeup::create([
             'nama_makeup' => $request->input('nama_makeup'),
-            'foto' => $randomName,
+            'jenis' => $request->input('nama_makeup'),
             'harga' => $request->input('harga'),
         ]);
 
@@ -72,27 +62,18 @@ class MakeupController extends Controller
         // Validasi input
         $validatedData = $request->validate([
             'nama_makeup' => 'required',
+            'jenis'=>'required',
             'harga' => 'required|numeric',
-            'foto'=> 'image|file|max:5024',
         ]);
 
         // Cari data baju berdasarkan ID
         $makeup = Makeup::findOrFail($id);
 
-        $extension = $request->file('foto')->getClientOriginalExtension();
-
-        $randomName = Str::random(20).'.'.$extension;
-
-        $path = public_path('img');
-
-        $request->file('foto')->move($path,$randomName);
-
-
         // Update data makeup dengan data dari request
         $makeup->update([
             'nama_makeup' => $request->input('nama_makeup'),
-            'foto' => $randomName,
-            'harga' => $request->input('harga'),
+            'jenis' => $request->input('nama_makeup'),
+            'harga' => $request->input('harga')
             
         ]);
 

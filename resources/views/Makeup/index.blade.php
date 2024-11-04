@@ -1,8 +1,8 @@
 @extends('layout')
 
 @section('content')
-    <h2>Daftar Baju</h2>
-    <a href="{{ route('baju.create') }}" class="btn btn-primary">Tambah Baju</a>
+    <h2>Daftar Makeup</h2>
+    <a href="{{ route('makeup.create') }}" class="btn btn-primary">Tambah Makeup</a>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success mt-2">
@@ -13,31 +13,25 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>Nama Baju</th>
-                <th>Foto</th>
+                <th>Nama Makeup</th>
+                <th>Jenis</th>
                 <th>Harga</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($bajus as $baju)
+            @foreach ($makeups as $makeup)
                 <tr>
-                    <td>{{ $baju->nama_baju }}</td>
+                    <td>{{ $makeup->nama_makeup }}</td>
+                    <td>{{ $makeup->jenis }}</td>
+                    <td>{{ 'Rp' . number_format($makeup->harga, 0, ',', '.') }}</td>
                     <td>
-                        @if ($baju->foto)
-                        <img src="{{ asset('img/' . $baju->foto) }}" alt="" style="width: 70px ;">
-                        @else
-                                Tidak ada foto
-                            @endif
-                    </td>
-                    <td>{{ 'Rp' . number_format($baju->harga, 0, ',', '.') }}</td>
-                    <td>
-                        <a href="{{ route('pelaminan.edit', $baju->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('pelaminan.destroy', $baju->id) }}" method="POST" class="d-inline" 
+                        <a href="{{ route('makeup.edit', $makeup->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('makeup.destroy', $makeup->id) }}" method="POST" class="d-inline" 
                             onsubmit="event.preventDefault(); 
                             Swal.fire({
                                 title: 'Anda yakin?',
-                                text: 'Data baju akan dihapus!',
+                                text: 'Data makeup akan dihapus!',
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonText: 'Hapus',
@@ -51,7 +45,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>                              
+                        </form>
                     </td>
                 </tr>
             @endforeach

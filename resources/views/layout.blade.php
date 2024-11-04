@@ -59,12 +59,12 @@
     </div>
     <nav class="nav flex-column">
       <a class="nav-link" href="{{ route('home') }}">Home</a>
-      <a class="nav-link" href="#">Admin</a>
-      <a class="nav-link" href="#">Pelanggan</a>
       <a class="nav-link" href="{{ route('paket.index')}}">Paket</a>
-      <a class="nav-link" href="#">Makeup</a>
+      <a class="nav-link" href="{{ route('makeup.index')}}">Makeup</a>
       <a class="nav-link" href="{{ route('pelaminan.index')}}">Pelaminan</a>
       <a class="nav-link" href="{{ route('baju.index') }}">Baju</a>
+      <a class="nav-link" href="{{ route('order.index') }}">Order</a>
+      <a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a>
     </nav>
     <div class="user-account">
       <a href="#" class="logout-link">Logout</a>

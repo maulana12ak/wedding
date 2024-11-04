@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h2>Edit Pelaminan</h2>
+    <h2>Edit Makeup</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -13,20 +13,21 @@
         </div>
     @endif
 
-    <form action="{{ route('pelaminan.update', $pelaminan->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('makeup.update', $makeup->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="nama_pelaminan" class="form-label">Masukkan Nama Pelaminan</label>
-            <input type="text" name="nama_pelaminan" class="form-control" id="nama_pelaminan" value="{{ $pelaminan->nama_pelaminan }}" required>
+            <label for="nama_makeup" class="form-label">Masukkan Nama Pelaminan</label>
+            <input type="text" name="nama_makeup" class="form-control" id="nama_makeup" value="{{ $pelaminan->nama_makeup }}" required>
+        </div>
         </div>
         <div class="mb-3">
-            <label for="foto" class="form-label">Masukkan Foto</label>
-            <input type="file" name="foto" class="form-control" id="foto" value="{{ $baju->foto }}">
+            <label for="jenis" class="form-label">Jenis</label>
+            <input type="text" name="jenis" class="form-control" id="jenis" value="{{ $makeup->jenis ?? '' }}" required>
         </div>
         <div class="mb-3">
             <label for="harga" class="form-label">Masukkan Harga</label>
-            <input type="number" name="harga" class="form-control" id="harga" value="{{ $pelaminan->harga }}" step="100000" required>
+            <input type="number" name="harga" class="form-control" id="harga" value="{{ $makeup->harga }}" step="100000" required>
         </div>
         <button type="submit" class="btn btn-primary">Perbarui</button>
     </form>
