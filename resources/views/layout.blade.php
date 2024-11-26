@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vieea Wedding</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -53,23 +54,40 @@
 </head>
 <body>
 
-  <div id="sidebar">
-    <div class="brand">
-      <strong>Vieea Wedding</strong>
-    </div>
-    <nav class="nav flex-column">
-      <a class="nav-link" href="{{ route('home') }}">Home</a>
-      <a class="nav-link" href="{{ route('paket.index')}}">Paket</a>
-      <a class="nav-link" href="{{ route('makeup.index')}}">Makeup</a>
-      <a class="nav-link" href="{{ route('pelaminan.index')}}">Pelaminan</a>
-      <a class="nav-link" href="{{ route('baju.index') }}">Baju</a>
-      <a class="nav-link" href="{{ route('order.index') }}">Order</a>
-      <a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a>
-    </nav>
-    <div class="user-account">
-      <a href="#" class="logout-link">Logout</a>
-    </div>
+<div id="sidebar">
+  <div class="brand">
+    <strong>Vieea Wedding</strong>
   </div>
+  <nav class="nav flex-column">
+    <a class="nav-link" href="{{ route('home') }}">
+      <i class="fas fa-home"></i> Home
+    </a>
+    <a class="nav-link" href="{{ route('paket.index') }}">
+      <i class="fas fa-box"></i> Paket
+    </a>
+    <a class="nav-link" href="{{ route('makeup.index') }}">
+      <i class="fas fa-paint-brush"></i> Makeup
+    </a>
+    <a class="nav-link" href="{{ route('pelaminan.index') }}">
+      <i class="fas fa-couch"></i> Pelaminan
+    </a>
+    <a class="nav-link" href="{{ route('baju.index') }}">
+      <i class="fas fa-tshirt"></i> Baju
+    </a>
+    <a class="nav-link" href="{{ route('order.index') }}">
+      <i class="fas fa-shopping-cart"></i> Order
+    </a>
+    <a class="nav-link" href="{{ route('transaksi.index') }}">
+      <i class="fas fa-money-check-alt"></i> Transaksi
+    </a>
+  </nav>
+  <div class="user-account">
+    <a href="#" class="logout-link">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </div>
+</div>
+
 
   <div class="content">
     @yield('content')
