@@ -29,7 +29,7 @@ class TransaksiController extends Controller
             'status' => 'required|in:Pending,Paid,Cancelled',
         ]);
 
-        Transaksi::create($request->all());
+
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil ditambahkan.');
     }
 
@@ -48,7 +48,6 @@ class TransaksiController extends Controller
             'status' => 'required|in:Pending,Paid,Cancelled',
         ]);
 
-        $transaksi->update($request->all());
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil diperbarui.');
     }
 

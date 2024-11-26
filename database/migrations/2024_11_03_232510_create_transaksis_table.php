@@ -10,14 +10,14 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_order'); // Foreign key ke tabel orders
+            $table->unsignedBigInteger('idorder'); // Foreign key ke tabel orders
             $table->date('tanggal'); // Tanggal transaksi
             $table->decimal('total', 10, 2); // Total transaksi dalam format desimal
             $table->string('status'); // Status transaksi
             $table->timestamps();
 
             // Tambahkan foreign key constraint untuk id_order
-            $table->foreign('id_order')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('idorder')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

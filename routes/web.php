@@ -21,7 +21,7 @@ Route::resource('transaksi', TransaksiController::class);
 
 // Route untuk beranda
 Route::get('/', function () {
-    return view('home');
+    return view('login');
 });
 
 Route::get('/baju', [BajuController::class, 'index'])->name('baju.index');
@@ -37,4 +37,5 @@ Route::delete('/transaksi/{id}', [TransaksiController::class, 'destroy'])->name(
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::delete('/order/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
 
+Route::get('/', [HomeController::class, 'index'])->name('login');
 Route::get('/', [HomeController::class, 'index'])->name('home');
