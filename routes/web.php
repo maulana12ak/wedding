@@ -8,6 +8,7 @@ use App\Http\Controllers\MakeupController;
 use App\Http\Controllers\PaketController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LoginController;
 use App\Models\Order;
 
 Route::resource('akun', AkunController::class);
@@ -17,6 +18,7 @@ Route::resource('makeup', MakeupController::class);
 Route::resource('pelaminan', PelaminanController::class);
 Route::resource('order', OrderController::class);
 Route::resource('transaksi', TransaksiController::class);
+Route::resource('login', LoginController::class);
 
 
 // Route untuk beranda
@@ -36,6 +38,16 @@ Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi
 Route::delete('/transaksi/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::delete('/order/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
+// Route ke halaman login
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 
-Route::get('/', [HomeController::class, 'index'])->name('login');
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route untuk proses login
+Route::post('/login', [LoginController::class, 'login']);
+
+// Route ke dashboard setelah login
+Route::get('/home', [LoginController::class, 'home'])->name('home')->middleware('auth');
+
+// Route untuk logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
