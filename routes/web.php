@@ -9,6 +9,7 @@ use App\Http\Controllers\PaketController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BerandaController;
 use App\Models\Order;
 
 Route::resource('akun', AkunController::class);
@@ -19,11 +20,13 @@ Route::resource('pelaminan', PelaminanController::class);
 Route::resource('order', OrderController::class);
 Route::resource('transaksi', TransaksiController::class);
 Route::resource('login', LoginController::class);
+Route::resource('beranda', BerandaController::class);
+
 
 
 // Route untuk beranda
 Route::get('/', function () {
-    return view('login');
+    return view('beranda');
 });
 
 Route::get('/baju', [BajuController::class, 'index'])->name('baju.index');
@@ -38,16 +41,11 @@ Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi
 Route::delete('/transaksi/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::delete('/order/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
-// Route ke halaman login
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 
-// Route untuk proses login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-
-// Route ke dashboard setelah login
-Route::get('/home', [LoginController::class, 'home'])->name('home')->middleware('auth');
-
-// Route untuk logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

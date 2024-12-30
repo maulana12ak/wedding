@@ -9,22 +9,12 @@ class CreateLoginTable extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('logins', function (Blueprint $table) {
-            $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
+    public function up()
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->string('google_id')->nullable();
+        $table->string('avatar')->nullable();
+    });
+}
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('logins');
-    }
-}

@@ -1,47 +1,93 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Login;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    // Tampilkan halaman login
+    // Method untuk menampilkan halaman login
     public function showLoginForm()
     {
-        return view('login');
+        return view('auth.login');
     }
 
-    // Proses login
+    // Method login standar
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required'
         ]);
 
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('home');
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials.']);
+        return back()->withErrors([
+            'email' => 'Kredensial yang diberikan tidak sesuai dengan data kami.'
+        ])->onlyInput('email');
     }
 
-    // Logout pengguna
-    public function logout()
+    // Method redirect ke Google OAuth
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    // Method handle callback dari Google
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+            
+            // Cari user berdasarkan email Google
+            $existingUser = User::where('email', $googleUser->getEmail())->first();
+
+            if ($existingUser) {
+                // Update Google ID jika belum ada
+                if (!$existingUser->google_id) {
+                    $existingUser->update([
+                        'google_id' => $googleUser->getId(),
+                        'avatar' => $googleUser->getAvatar()
+                    ]);
+                }
+
+                // Login existing user
+                Auth::login($existingUser);
+            } else {
+                // Buat user baru
+                $newUser = User::create([
+                    'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
+                    'google_id' => $googleUser->getId(),
+                    'avatar' => $googleUser->getAvatar(),
+                    'password' => Hash::make(str()->random(16)) // Random password
+                ]);
+
+                Auth::login($newUser);
+            }
+
+            return redirect()->intended('dashboard');
+
+        } catch (\Exception $e) {
+            return redirect('/login')->with('error', 'Gagal login dengan Google: ' . $e->getMessage());
+        }
+    }
+
+    // Method logout
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('login');
-    }
 
-    // Tampilkan dashboard
-    public function home()
-    {
-        return view('home');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

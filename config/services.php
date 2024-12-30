@@ -35,4 +35,19 @@ return [
         ],
     ],
 
+        'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URL'),
+    ],
+
 ];
+
+return [
+    // ...
+    'fonnte' => [
+        'url' => 'https://api.fonnte.com/send',
+        'api_key' => env('FONNTE_API_KEY'),
+    ],
+];
+

@@ -80,6 +80,10 @@
     <a class="nav-link" href="{{ route('transaksi.index') }}">
       <i class="fas fa-money-check-alt"></i> Transaksi
     </a>
+    </a>
+    <a class="nav-link" href="{{ route('akun.index') }}">
+      <i class="fas fa-money-check-alt"></i> Akun
+    </a>
   </nav>
   <div class="user-account">
     <a href="#" class="logout-link">

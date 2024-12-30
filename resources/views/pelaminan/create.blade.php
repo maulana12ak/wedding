@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
     <h2>Tambah Pelaminan Baru</h2>

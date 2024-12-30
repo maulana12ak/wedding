@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('content')
 <h2>{{ isset($paket) ? 'Edit Paket' : 'Tambah Paket' }}</h2>
