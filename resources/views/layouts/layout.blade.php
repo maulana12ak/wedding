@@ -77,9 +77,6 @@
     <a class="nav-link" href="{{ route('order.index') }}">
       <i class="fas fa-shopping-cart"></i> Order
     </a>
-    <a class="nav-link" href="{{ route('transaksi.index') }}">
-      <i class="fas fa-money-check-alt"></i> Transaksi
-    </a>
     </a>
     <a class="nav-link" href="{{ route('akun.index') }}">
       <i class="fas fa-money-check-alt"></i> Akun

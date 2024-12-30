@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Vieea Wedding</title>
+        <title>Veiaa Wedding</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -20,17 +20,17 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">Vieea Wedding</a>
+                <a class="navbar-brand" href="#page-top">Veiaa Wedding</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#about">Produk</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#product">Product</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#profile">Profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -76,101 +76,49 @@
             color: #fff;
             font-size: 24px;
         }
-        .wa__popup_chat_box {
-            position: fixed;
-            right: 73px;
-            bottom: 137px;
-            display: none;
-            width: 300px;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        .wa__popup_heading {
-            background: #2db742;
-            padding: 10px;
-            color: #fff;
-        }
-        .wa__popup_title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .wa__popup_intro {
-            font-size: 12px;
-            color: #d9ebc6;
-        }
-        .wa__popup_content {
-            padding: 10px;
-        }
-        .wa__popup_content_item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .wa__popup_avatar {
-            width: 48px;
-            height: 48px;
-            margin-right: 10px;
-        }
-        .wa__popup_txt {
-            font-size: 12px;
-        }
-        .wa__popup_powered {
-            text-align: center;
-            font-size: 10px;
-            padding: 5px;
-            background: #f9f9f9;
-        }
-        .wa__popup_powered a {
-            color: #2db742;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
     <div id="wa" class="wa__widget_container">
-        <div class="wa__btn_popup" onclick="togglePopup()">
+        <div class="wa__btn_popup" onclick="sendWhatsAppMessage()">
             <div class="wa__btn_popup_txt">
-                More Information & Booking?<br>
-                <strong>Chat with us</strong>
+                Butuh informasi dan pemesanan?<br>
+                <strong>Hubungi kami!</strong>
             </div>
-            <div class="wa__btn_popup_icon">💬</div>
-        </div>
-        <div class="wa__popup_chat_box" id="waChatBox">
-            <div class="wa__popup_heading">
-                <div class="wa__popup_title">Start a Conversation</div>
-                <div class="wa__popup_intro">Vieea Wedding Team Ready to Help You</div>
-            </div>
-            <div class="wa__popup_content">
-                <div class="wa__popup_notice">The team typically replies in a few minutes.</div>
-                <div class="wa__popup_content_list">
-                    <div class="wa__popup_content_item">
-                        <a href="https://api.whatsapp.com/send?phone=6288247051578&text=Halo Vieea Wedding, saya sedang membaca info di Website Vieea Wedding" target="_blank">
-                            <div class="wa__popup_avatar">
-                                <img src="https://via.placeholder.com/48" alt="Avatar" style="border-radius: 50%;">
-                            </div>
-                            <div class="wa__popup_txt">
-                                <div class="wa__member_name">Admin Digda</div>
-                                <div class="wa__member_duty">Digda</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="wa__popup_powered">
-                Powered by <a href="https://ninjateam.org/whatsapp-chat-wordpress/">NinjaTeam</a>
-            </div>
+            <div class="wa__btn_popup_icon"><i class="fas fa-brands fa-whatsapp"></i></div>
         </div>
     </div>
 
     <script>
-        function togglePopup() {
-            const chatBox = document.getElementById('waChatBox');
-            chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
+        async function sendWhatsAppMessage() {
+            try {
+                const response = await fetch('/send-whatsapp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        phone: '6288247051578', // Nomor WhatsApp tujuan
+                        message: 'Halo, ini adalah pesan dari widget WhatsApp!' // Pesan yang dikirim
+                    })
+                });
+
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Pesan berhasil dikirim: ' + result.message);
+                } else {
+                    alert('Gagal mengirim pesan: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat mengirim pesan.');
+            }
         }
     </script>
+</body>
 
 
         <!-- Masthead-->
@@ -178,39 +126,72 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">Vieea Wedding</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Intinya ini sebua website wedding organizer</h2>
-                        <a class="btn btn-primary" href="#about">Get Started</a>
+                        <h1 class="mx-auto my-0 text-uppercase">Veiaa Wedding</h1>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">"Merangkai Momen, Mengukir Kenangan."</h2>
+                        <a class="btn btn-primary" href="#product">Mulai Jelajah</a>
                     </div>
                 </div>
             </div>
         </header>
         <!-- Produk-->
-        <section class="about-section text-center" id="about">
+        <section class="about-section text-center" id="product">
             <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
-                        <p class="text-white-50">
-                            Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
-                        </p>
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <h4 class="text-uppercase m-0">Paket 1</h4>
+                                <div data-ads-page="1" class="card" data-v-bdf929ba="">
+                                    <div class="card__thumbnail" data-v-bdf929ba="">
+                                        <img src="assets/img/produk-1.png" width="100%" >
+                                        <div class="small text-black-50">photo by veiaa wedding</a></div>
+                                        <h4>IDR 20,500,000</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <img class="img-fluid" src="assets/img/ipad.png" alt="..." />
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <h4 class="text-uppercase m-0">Paket 2</h4>
+                                <div data-ads-page="1" class="card" data-v-bdf929ba="">
+                                    <div class="card__thumbnail" data-v-bdf929ba="">
+                                        <img src="assets/img/produk-2.jpeg" width="100%" >
+                                        <div class="small text-black-50">photo by veiaa wedding</a></div>
+                                        <h4>IDR 30,000,000</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <h4 class="text-uppercase m-0">Paket 3</h4>
+                                <div data-ads-page="1" class="card" data-v-bdf929ba="">
+                                    <div class="card__thumbnail" data-v-bdf929ba="">
+                                        <img src="assets/img/produk-3.jpg" width="100%" >
+                                        <div class="small text-black-50">photo by veiaa wedding</a></div>
+                                        <h4>IDR 40,500,000</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <img class="img-fluid" src="assets/img/wedding-3.png" alt="..." />
             </div>
         </section>
         <!-- About-->
-        <section class="projects-section bg-light" id="projects">
+        <section class="projects-section bg-light" id="about">
             <div class="container px-4 px-lg-5">
                 <!-- Featured About Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="..." /></div>
+                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/wedding-1.jpg" alt="..." /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>Shoreline</h4>
-                            <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                            <h4>Tentang Kami</h4>
+                            <p class="text-black-50 mb-0">Kami adalah Wedding Organizer profesional yang berkomitmen untuk menghadirkan pernikahan impian Anda. Dengan perencanaan yang detail, tim berpengalaman, dan layanan penuh dedikasi, kami memastikan setiap momen spesial Anda menjadi kenangan tak terlupakan. Dari konsep hingga hari H, kami hadir untuk mewujudkan cerita cinta Anda dengan sempurna.</p>
                         </div>
                     </div>
                 </div>
@@ -244,52 +225,9 @@
                 </div>
             </div>
         </section>
-        <!-- Signup-->
-        <section class="signup-section" id="signup">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
-                            <!-- Email address input-->
-                            <div class="row input-group-newsletter">
-                                <div class="col"><input class="form-control" id="emailAddress" type="email" placeholder="Enter email address..." aria-label="Enter email address..." data-sb-validations="required,email" /></div>
-                                <div class="col-auto"><button class="btn btn-primary disabled" id="submitButton" type="submit">Notify Me!</button></div>
-                            </div>
-                            <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:required">An email is required.</div>
-                            <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:email">Email is not valid.</div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3 mt-2 text-white">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3 mt-2">Error sending message!</div></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <!-- Contact-->
-        <section class="contact-section bg-black">
+        <section class="contact-section bg-black" id="contact">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-4 mb-3 mb-md-0">
@@ -308,8 +246,8 @@
                                 <i class="fas fa-brands fa-instagram text-primary mb-2"></i>
                                 <h4 class="text-uppercase m-0">Instagram</h4>
                                 <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50"><a href="#!">@makeupbyvieaa</a></div>
-                                <div class="small text-black-50"><a href="#!">@vieadekorasi</a></div>
+                                <div class="small text-black-50"><a href="https://www.instagram.com/makeupbyveiaa/">@makeupbyveiaa</a></div>
+                                <div class="small text-black-50"><a href="https://www.instagram.com/veiadekorasi/">@veiadekorasi</a></div>
                             </div>
                         </div>
                     </div>
@@ -319,8 +257,8 @@
                                 <i class="fas fa-brands fa-tiktok text-primary mb-2"></i>
                                 <h4 class="text-uppercase m-0">TikTok</h4>
                                 <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50"><a href="#!">@makeupbyvieaa</a></div>
-                                <div class="small text-black-50"><a href="#!">@vieadekorasi</a></div>
+                                <div class="small text-black-50"><a href="https://www.tiktok.com/@veiadekorasi?_t=8seCVHsSt0B&_r=1">@makeupveiaa</a></div>
+                                <div class="small text-black-50"><a href="https://www.tiktok.com/@makeupbyveiaa?_t=8seCTIVSlww&_r=1">@veiadekorasi</a></div>
                             </div>
                         </div>
                     </div>
@@ -333,10 +271,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
